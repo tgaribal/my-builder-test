@@ -10,7 +10,6 @@ const text = 'default text test';
 
 export const TestCustomComponent = (props: any) => {
 
-  console.log('INISDE COMPONENT: ,')
   return (
     <>
     <h2>{props.inputVal}</h2>
@@ -26,6 +25,11 @@ Builder.registerComponent(TestCustomComponent, {
       name: 'inputVal',
       type: 'text',
       defaultValue: `${text}`
+    },
+    {
+      name: 'json',
+      type: 'json',
+      defaultValue: []
     },
     {
       name: 'list',

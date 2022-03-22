@@ -99,10 +99,10 @@ export const Navigation = (props: any) => {
     const Flyout = (links: any) => {
         // console.log('LINK GROUP: ', links)
         return (
-            links?.navigationLinks?.map((link: any) => {
+            links?.navigationLinks?.map((link: any ,i: number) => {
                 // console.log('LINK: ', link)
                     
-                return <a className="nav-lins" href={link.linkUrl}>{link.linkText}</a>
+                return <a key={i} className="nav-lins" href={link.linkUrl}>{link.linkText}</a>
 
             })
         ) || null;

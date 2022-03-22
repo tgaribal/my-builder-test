@@ -19,23 +19,17 @@ export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ abTest: string }>) {
 
-  const abPage =
-    (await builder
-      .get('ab-test-page', { 
-          includeRefs: true
-        })
-      .toPromise()) || null
-    console.log('PAGE PAGE: ', abPage, params)
-    //   console.log('PAGE id: ', abPage.id)
-    //   console.log('PAGE variationId: ', abPage.variationId)
-    //   console.log('PAGE testVariationId: ', abPage.testVariationId)
-
-//   const articlePageTemplate =
-//       (await builder
-//         .get('article-page')
-//         .toPromise()) || null
-//         // console.log('TEMPLATE: ', articlePageTemplate)
-      
+  const abPage = await builder.get('ab-test-page', {
+          includeRefs: true,
+          userAttributes: {
+            urlPath: '/test/' + (params?.abTest || '')
+          },
+        }).promise() || null
+    // console.log('PAGE PAGE: ', abPage, abPage?.data?.testPage?.id, params)
+    console.log('PAGE id: ', abPage, params)
+    console.log('PAGE tesPageId: ', abPage?.data?.testPage?.id)
+      console.log('PAGE variationId: ', abPage?.variationId)
+      console.log('PAGE testVariationId: ', abPage?.testVariationId)
 
   return {
     props: {
@@ -64,13 +58,14 @@ export default function Page({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
 
-  console.log('PAGE VARIANT: ', abPage)
+  if (abPage) console.log('PAGE VARIANT: ', abPage)
+
   if (router.isFallback) {
     return <h1>Loading...</h1>
   }
   const isLive = !Builder.isEditing && !Builder.isPreviewing
 
-  if (false){//|| (isLive && !router.query.preview)) {
+  if (!abPage && isLive) {
     return (
       <>
         <Head>
@@ -87,14 +82,19 @@ export default function Page({
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <BuilderContent model="ab-test-page" options={{includeRefs: true}}>
-        {(data, loading) => {
-          console.log('data!!: ', data?.testPage)
-          
+         
+      <BuilderContent {...(isLive && {content: abPage })} isStatic={true} model="ab-test-page" options={{ includeRefs: true }}>
+        {(data, loading, content) => {
+          // console.log('other: ', content)
+          console.log('PAGE VARIANT data!!!!: ', data?.testPage)
+          // console.log('PAGE VARIANT content!: ', content)
+          // if (!data?.testPage?.value) return null;
+
           return (
             <BuilderComponent 
-              model={data?.testPage?.model} 
-              content={data?.testPage?.value} 
+              model="page"
+              // {...(isLive && {content: data?.testPage?.value })}
+              content={ data?.testPage?.value }
               options={{ includeRefs: true }} >
               This is default component
             </BuilderComponent>
@@ -104,9 +104,3 @@ export default function Page({
     </>
   )
 }
-
- {/* <BuilderContent model="ab-test-page" content={abPage}> { (data, loading) => {
-          console.log('VARIANT DATA: ', data) */}
-         
-              //     }} 
-      // </BuilderContent>
