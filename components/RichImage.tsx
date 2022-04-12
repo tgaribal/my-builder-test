@@ -2,8 +2,9 @@ import React from 'react';
 import { Builder, Image } from '@builder.io/react';
 
 export const ImageComponent = (props : any) => {
+  console.log('props: ', props)
   if (props.imageReference?.value?.data.image) {
-    return <Image {...props} image={props.imageReference?.value?.data.image}></Image>
+    return <div aria-label={props.ariaLabel} ><Image {...props} image={props.imageReference?.value?.data.image}></Image></div>
   }
 
   return 'noo ref value';
@@ -28,6 +29,10 @@ Builder.registerComponent(ImageComponent, {
       name: 'imageReference',
       friendlyName: 'Enriched Image Entry'
     } as any,
+    {
+      name: 'ariaLabel',
+      type: 'text',
+    },
     {
       name: 'height',
       type: 'number',
