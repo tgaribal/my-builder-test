@@ -14,7 +14,7 @@ builder.init(BUILDER_API_KEY)
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ article: string }>) {
-
+  
   const articleData =
     (await builder
       .get('article', {
@@ -23,6 +23,7 @@ export async function getStaticProps({
         },
       })
       .toPromise()) || null
+  
 
   const articlePageTemplate =
     (await builder
@@ -52,6 +53,8 @@ export async function getStaticPaths() {
     fallback: true,
   }
 }
+
+
 
 // React Component
 export default function Article({

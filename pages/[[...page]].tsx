@@ -25,9 +25,12 @@ export async function getStaticProps({
         userAttributes: {
           urlPath: '/' + (params?.page?.join('/') || '')
         },
+        options: {
+          includeRefs: true
+        }
       })
       .toPromise()) || null
-      const serverResults = {yourResults: 'here'}
+      const serverResults = {yourResults: 'THERE'}
 
   return {
     props: {
@@ -45,28 +48,30 @@ export async function getStaticProps({
 }
 
 // returns a list
-// export async function getStaticPaths() {
-//   const pages = await builder.getAll('page', {
-//     options: { noTargeting: true },
-//     omit: 'data.blocks',
-//   })
-//   // console.log('PAGESSS', pages.map((thing) => {
-//   //   const page = `${thing.data?.url}`;
-//   //   console.log(page);
-//   //   return page;
-//   // }));
-//   return {
-//     paths: pages.map((page) => `${page.data?.url}`),
-//     fallback: true,
-//   }
-// }
-
 export async function getStaticPaths() {
+
+  const pages = await builder.getAll('page', {
+    // options: { noTargeting: true },
+    omit: 'data.blocks',
+  })
+  console.log('PAGESSSS', pages.length)
+  pages.map((thing) => {
+    const page = `${thing.data?.url}`;
+    console.log('PAGESSSS: ', page);
+    return page;
+  });
   return {
-    paths: [],
+    paths: pages.map((page) => `${page.data?.url}`),
     fallback: true,
   }
 }
+
+// export async function getStaticPaths() {
+//   return {
+//     paths: [],
+//     fallback: true,
+//   }
+// }
 function handleSubmit() {
   console.log('hello!!!')
 }
@@ -78,6 +83,9 @@ export default function Page({
   const router = useRouter()
   // console.log("QUERY: ", router.query.preview)
   // console.log('REOUTER: ', router.query.preview );
+  const testFn = () => {
+    console.log('hello');
+  }
 
   if (router.isFallback) {
     return <h1>Loading...</h1>
@@ -99,12 +107,13 @@ export default function Page({
   return (
     <>
       <Head>
+        <title>HELLOW222</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <BuilderComponent model="page" 
         content={page} 
-        data={serverResults}
-        
+        data={{ loggedIn: true }}
+        options={{includeRefs: true}}
         context={{
           handleSubmit, 
           clickOnPage: (e: any) => {
@@ -120,6 +129,7 @@ export default function Page({
         }} >
         This is default component
       </BuilderComponent>
+
     </>
   )
 }

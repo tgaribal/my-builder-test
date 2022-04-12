@@ -20,16 +20,19 @@ export async function getStaticProps({
 }: GetStaticPropsContext<{ abTest: string }>) {
 
   const abPage = await builder.get('ab-test-page', {
-          includeRefs: true,
+          options: {
+            includeUnpublished: true,
+            includeRefs: true,
+          },
           userAttributes: {
             urlPath: '/test/' + (params?.abTest || '')
           },
         }).promise() || null
     // console.log('PAGE PAGE: ', abPage, abPage?.data?.testPage?.id, params)
-    console.log('PAGE id: ', abPage, params)
-    console.log('PAGE tesPageId: ', abPage?.data?.testPage?.id)
-      console.log('PAGE variationId: ', abPage?.variationId)
-      console.log('PAGE testVariationId: ', abPage?.testVariationId)
+    // console.log('PAGE id: ', abPage, params)
+    // console.log('PAGE tesPageId: ', abPage?.data?.testPage?.id)
+    //   console.log('PAGE variationId: ', abPage?.variationId)
+    //   console.log('PAGE testVariationId: ', abPage?.testVariationId)
 
   return {
     props: {
@@ -58,7 +61,7 @@ export default function Page({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
 
-  if (abPage) console.log('PAGE VARIANT: ', abPage)
+  // if (abPage) console.log('PAGE VARIANT: ', abPage)
 
   if (router.isFallback) {
     return <h1>Loading...</h1>
@@ -83,16 +86,16 @@ export default function Page({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
          
-      <BuilderContent {...(isLive && {content: abPage })} isStatic={true} model="ab-test-page" options={{ includeRefs: true }}>
+      <BuilderContent content={abPage} isStatic={true} model="ab-test-page" options={{ includeRefs: true }}>
         {(data, loading, content) => {
           // console.log('other: ', content)
-          console.log('PAGE VARIANT data!!!!: ', data?.testPage)
+          // console.log('PAGE VARIANT data!!!!: ', data?.testPage)
           // console.log('PAGE VARIANT content!: ', content)
-          // if (!data?.testPage?.value) return null;
-
+          // if (!data?.testPage?.value) return <div>HELLO</div>;
           return (
             <BuilderComponent 
               model="page"
+              data={ data }
               // {...(isLive && {content: data?.testPage?.value })}
               content={ data?.testPage?.value }
               options={{ includeRefs: true }} >

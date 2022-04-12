@@ -16,10 +16,7 @@ export const getStaticProps = async (context: any) => {
 }
 
 export default function BuilderRibbon({ ribbon }: any) {
-  // console.log('BUILDERRIBBON: ', ribbon)
     return (
-      <div className="this-is-in-builder-ribbon">
-
         <BuilderComponent
             model="ribbon"
             content={ribbon}
@@ -27,7 +24,6 @@ export default function BuilderRibbon({ ribbon }: any) {
             //   query: { "data.isFooterContent": "true" }
             // }}
             ></BuilderComponent>
-      </div>
     )
 
 }

@@ -38,7 +38,7 @@ export async function getStaticProps({
   // returns a list
   export async function getStaticPaths() {
     const pages = await builder.getAll('ab-test-page', {
-      options: { noTargeting: true },
+      options: { : true },
       omit: 'data.blocks',
     })
     // console.log('PAGES: ', pages)
