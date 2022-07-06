@@ -125,7 +125,7 @@ export default function Page({
             <BuilderComponent model="page" 
               content={content} 
               data={{ loggedIn: true, variant }}
-              options={{includeRefs: true}}
+              options={{includeRefs: true, options: { noTraverse: false}}}
               context={{
                 handleSubmit, 
                 clickOnPage: (e: any) => {
