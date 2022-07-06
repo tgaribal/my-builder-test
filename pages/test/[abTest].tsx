@@ -89,7 +89,7 @@ export default function Page({
       <BuilderContent content={abPage} isStatic={true} model="ab-test-page" options={{ includeRefs: true }}>
         {(data, loading, content) => {
           // console.log('other: ', content)
-          // console.log('PAGE VARIANT data!!!!: ', data?.testPage)
+          // console.log('PAGE VARIANT data!!!!: ', data)
           // console.log('PAGE VARIANT content!: ', content)
           // if (!data?.testPage?.value) return <div>HELLO</div>;
           return (

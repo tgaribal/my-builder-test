@@ -12,8 +12,14 @@ export const TestCustomComponent = (props: any) => {
 
   return (
     <>
-    <h2>{props.inputVal}</h2>
+      <h2>{props.inputVal}</h2>
+    
+      <>
+        {props.list.map((item: any, index: any) => {
 
+          return <div key={item.number+index}>{item.reviewText}</div>
+        })}
+      </>
     </>
   );
 };
@@ -24,7 +30,10 @@ Builder.registerComponent(TestCustomComponent, {
     {
       name: 'inputVal',
       type: 'text',
-      defaultValue: `${text}`
+      defaultValue: `${text}`,
+      onChange: (options: any) => {
+        console.log('KAHSDFKHASDKFHAKSDHFALKSHD: ', options)
+      },
     },
     {
       name: 'json',
@@ -41,14 +50,16 @@ Builder.registerComponent(TestCustomComponent, {
         {
           name: 'reviewText',
           type: 'string',
-          defaultValue: '"You guys are the best"',
+          defaultValue: '"You guys are the best"'
         },
         {
           name: 'number',
           type: 'string',
           required: true,
           defaultValue: '1',
-          onChange: JSON.stringify((options: any) => {console.log('KAHSDFKHASDKFHAKSDHFALKSHD: ', options)}),
+          // onChange: (options: any) => {
+          //   console.log('KAHSDFKHASDKFHAKSDHFALKSHD: ')
+          // },
           regex: {
             // pattern to test, like "^\/[a-z]$" 
             pattern: "^[1-9]?[0-9]{1}$|^100$",

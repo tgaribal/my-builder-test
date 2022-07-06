@@ -7,6 +7,7 @@ import BuilderRibbon from '@components/Ribbon'
 // import '@components/Ribbon';
 import '../components/Link/link.css';
 import '@components/RichImage';
+import '@components/Navigation'
 
 builder.init(builderConfig.apiKey)
 
@@ -22,3 +23,5 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     </>
   )
 }
+
+

@@ -23,8 +23,8 @@ export const Navigation = (props: any) => {
             },
             body: JSON.stringify(data)
         }); 
-        // console.log('RESPONSE: ', response);
-        //return response.json();
+        console.log('RESPONSE: ', response);
+        return response.json();
     }
 
     const dataObject = {
@@ -34,7 +34,7 @@ export const Navigation = (props: any) => {
         //       "operator": "is", // can be `startsWith` to match any urls that starts with value
         //       "value": "/write-api/success" // must start with /
         //     }
-        //   ] 
+        //   ],
         name: 'Gooppl',
         data: {
            userName: 'Anu',
@@ -62,6 +62,7 @@ export const Navigation = (props: any) => {
 
     const handleClick = (e: any) => {
         console.log('click', e)
+        // createNewAuthor();
         // postData('https://builder.io/api/v1/write/reviews', dataObject)
         //  .then((data) => {
         //    console.log('data: ', data);
@@ -123,3 +124,46 @@ export const Navigation = (props: any) => {
 
 }
 
+
+// import { BuilderContent } from "@builder.io/react";
+
+// export const Navigation = (props: any) => {
+//     console.log('props.siteSettings', props.siteSettings)
+//     return <BuilderContent content={props.siteSettings} model="site-settings">{ (data: any) => {
+//         console.log('DATA: ', data)
+//         return <>
+//             <ul style={{display: 'flex', padding: 0, listStyle: 'none', justifyContent: 'center'}}>
+//                 {
+//                     data?.navigationLinks?.map((link: any) => {
+//                         return <div key={link.linkUrl}  style={{ position: 'relative', padding: '20px', cursor: 'pointer' }}>
+//                             {link.linkText}
+//                             <ul style={{ display: 'none', position: "absolute", flexDirection: 'column', left: '20px', zIndex: 1000, background: 'white', padding: 0}}>
+//                                 {link.subLinks?.map((sublink: any) => {
+//                                     return <a key={sublink.linkUrls} href={sublink.linkUrl } style={{ textDecoration: 'none', color: 'black', padding: '5px', border: '1px solid black' }}>
+//                                         {sublink.linkText}
+//                                     </a>
+//                                 })}
+//                             </ul>
+//                         </div>
+//                     })
+//                 }
+//             </ul>
+            
+//             {props.children}
+//         </>
+// }}</BuilderContent>
+
+// }
+
+// import { BuilderContent } from "@builder.io/react";
+
+// export const NavTwo = (props: any) => {
+//     return <BuilderContent model="nav-2">{(data, loading, content) => {
+//         console.log(data)
+//         return(
+//             <>
+//             <div>HEllo</div>
+//             </>
+//         )
+//     }}</BuilderContent>
+// }

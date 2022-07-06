@@ -1,8 +1,9 @@
 import React from 'react';
 import { Builder, Image } from '@builder.io/react';
+// import Accordion from `@builder.io/widgets`;
 
 export const ImageComponent = (props : any) => {
-  console.log('props: ', props)
+  // console.log('props: ', props)
   if (props.imageReference?.value?.data.image) {
     return <div aria-label={props.ariaLabel} ><Image {...props} image={props.imageReference?.value?.data.image}></Image></div>
   }
@@ -11,7 +12,7 @@ export const ImageComponent = (props : any) => {
 }
 
 Builder.registerComponent(ImageComponent, {
-  name: 'Imagex',
+  name: 'RichImage',
   static: true,
   image:
     'https://firebasestorage.googleapis.com/v0/b/builder-3b0a2.appspot.com/o/images%2Fbaseline-insert_photo-24px.svg?alt=media&token=4e5d0ef4-f5e8-4e57-b3a9-38d63a9b9dc4',

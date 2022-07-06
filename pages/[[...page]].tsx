@@ -18,7 +18,6 @@ builder.init(BUILDER_API_KEY)
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ page: string[] }>) {
-
   const page =
     (await builder
       .get('page', {
@@ -31,7 +30,8 @@ export async function getStaticProps({
       })
       .toPromise()) || null
       const serverResults = {yourResults: 'THERE'}
-
+      
+// console.log('PAGEERAER', page)
   return {
     props: {
       page,
@@ -51,13 +51,14 @@ export async function getStaticProps({
 export async function getStaticPaths() {
 
   const pages = await builder.getAll('page', {
-    // options: { noTargeting: true },
+    options: { noTargeting: true },
     omit: 'data.blocks',
   })
-  console.log('PAGESSSS', pages.length)
+
+  // console.log('PAGESSSS', pages.length)
   pages.map((thing) => {
     const page = `${thing.data?.url}`;
-    console.log('PAGESSSS: ', page);
+    // console.log('PAGESSSS: ', page);
     return page;
   });
   return {
@@ -83,6 +84,7 @@ export default function Page({
   const router = useRouter()
   // console.log("QUERY: ", router.query.preview)
   // console.log('REOUTER: ', router.query.preview );
+  console.log('PAGE DATA: ', page?.data?.title)
   const testFn = () => {
     console.log('hello');
   }
@@ -91,7 +93,7 @@ export default function Page({
     return <h1>Loading...</h1>
   }
   const isLive = !Builder.isEditing && !Builder.isPreviewing
-
+  
   if ((!page && isLive)){//|| (isLive && !router.query.preview)) {
     return (
       <>
@@ -107,28 +109,40 @@ export default function Page({
   return (
     <>
       <Head>
-        <title>HELLOW222</title>
+        <title>{page?.data?.title}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <BuilderComponent model="page" 
-        content={page} 
-        data={{ loggedIn: true }}
-        options={{includeRefs: true}}
-        context={{
-          handleSubmit, 
-          clickOnPage: (e: any) => {
-            console.log('EVENT: ', e.target.dataset)
-            // if(e.target.dataset) {
-            //   state.testingEvent = e.target.dataset
-            // }
-            builder.track('custom-event');
-            builder.track('click-by-model', { meta: {modelClicked: 'page', isTesting: true}});
-            console.log('CLICK')
-            builder.trackConversion(99);
-          }
-        }} >
-        This is default component
-      </BuilderComponent>
+      <BuilderContent content={page} model="page"> 
+        {(variant, loading, content) => {
+        // console.log('PAGE DATA: ', variant);
+        // console.log('PAGE CONTENT: ', content);
+        // console.log('PAGE PAGE: ', page);
+        // console.log('VARIANT ID: ', content.testVariationId);
+        // console.log('VARIANT NAME: ', content.testVariationName)
+
+        return(
+            <BuilderComponent model="page" 
+              content={content} 
+              data={{ loggedIn: true, variant }}
+              options={{includeRefs: true}}
+              context={{
+                handleSubmit, 
+                clickOnPage: (e: any) => {
+                  console.log('EVENT: ', e.target.dataset)
+                  // if(e.target.dataset) {
+                    //   state.testingEvent = e.target.dataset
+                    // }
+                    builder.track('custom-event');
+                    builder.track('click-by-model', { meta: {modelClicked: 'page', isTesting: true}});
+                    console.log('CLICK')
+                    builder.trackConversion(99);
+                  }
+                }} >
+              This is default component
+            </BuilderComponent>
+        )
+              }}
+        </BuilderContent>
 
     </>
   )

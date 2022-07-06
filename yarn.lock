@@ -339,10 +339,10 @@
   "resolved" "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   "version" "0.2.3"
 
-"@builder.io/react@^1.1.0", "@builder.io/react@^1.1.50":
-  "integrity" "sha512-S7IXXTflWVqCn/BEidMTkH2EZ2Xzbxn99tAkkrXSH7iPyptzGehDUwm7t4YvmVAExgVqdAFriyE9kLYSQy+Zag=="
-  "resolved" "https://registry.npmjs.org/@builder.io/react/-/react-1.1.50.tgz"
-  "version" "1.1.50"
+"@builder.io/react@^1.1.0", "@builder.io/react@^1.1.51":
+  "integrity" "sha512-ilSTfFDbkJyqUSwtR4Vy7C1y39hVlUkGoGu6kcX3Om9BUOPNfazsBMVZxiYfGIotAmpephjEv3AGzLoBerDj0A=="
+  "resolved" "https://registry.npmjs.org/@builder.io/react/-/react-1.1.52.tgz"
+  "version" "1.1.52"
   dependencies:
     "@builder.io/sdk" "^1.1.26"
     "@emotion/core" "^10.0.17"
@@ -6660,12 +6660,7 @@
   "resolved" "https://registry.npmjs.org/ts-pnp/-/ts-pnp-1.2.0.tgz"
   "version" "1.2.0"
 
-"tslib@^1.10.0":
-  "integrity" "sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg=="
-  "resolved" "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
-  "version" "1.14.1"
-
-"tslib@^1.8.1":
+"tslib@^1.10.0", "tslib@^1.8.1":
   "integrity" "sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg=="
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
   "version" "1.14.1"
