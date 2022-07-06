@@ -5,6 +5,5 @@ const BUILDER_API_KEY = 'e37b966ec695434bb21e97442a4a9f46'
 builder.init(BUILDER_API_KEY);
 
 export default function Symbol() {
-
   return <BuilderComponent model="symbol" options={{ includeRefs: true }}/>
 }
