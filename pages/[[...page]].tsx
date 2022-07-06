@@ -25,7 +25,8 @@ export async function getStaticProps({
           urlPath: '/' + (params?.page?.join('/') || '')
         },
         options: {
-          includeRefs: true
+          includeRefs: true,
+          noTraverse: false
         }
       })
       .toPromise()) || null
