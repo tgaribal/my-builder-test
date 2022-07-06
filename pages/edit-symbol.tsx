@@ -14,5 +14,5 @@ builder.init(BUILDER_API_KEY);
 
 export default function Symbol() {
 
-  return <BuilderComponent model="symbol" options={{ includeRefs: true }}/>
+  return <BuilderComponent model="symbol" options={{ includeRefs: true }}/> || null
 }
