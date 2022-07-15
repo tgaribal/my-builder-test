@@ -8,6 +8,7 @@ import { getLayoutProps, getRibbonProps, getCustomCss } from '@lib/get-component
 import { Link } from '@components/Link/Link'
 import '@components/TestCustomComponent/TestCustomComponent';
 import '@components/testerWithChildern';
+import '@components/CustomComponentExample/CustomComponentExample';
 // import '@components/BetterComponent/BetterComponent';
 import '@builder.io/widgets';
 
@@ -115,7 +116,7 @@ export default function Page({
       </Head>
       <BuilderContent content={page} model="page"> 
         {(variant, loading, content) => {
-        // console.log('PAGE DATA: ', variant);
+        console.log('PAGE DATA: ', variant);
         // console.log('PAGE CONTENT: ', content);
         // console.log('PAGE PAGE: ', page);
         // console.log('VARIANT ID: ', content.testVariationId);
@@ -125,7 +126,7 @@ export default function Page({
             <BuilderComponent model="page" 
               content={content} 
               data={{ loggedIn: true, variant }}
-              options={{includeRefs: true, options: { noTraverse: false}}}
+              options={{includeRefs: true}}
               context={{
                 handleSubmit, 
                 clickOnPage: (e: any) => {
