@@ -120,17 +120,17 @@ export default function Page({
       {show404 ? (
         <DefaultErrorPage statusCode={404} />
       ) : (
-        <BuilderContent content={page} model="page"> 
-          {(variant, loading, content) => {
-          // console.log('PAGE DATA: ', variant);
-          // console.log('PAGE CONTENT: ', content);
-          // console.log('PAGE PAGE: ', page);
-          // console.log('VARIANT ID: ', content.testVariationId);
-          // console.log('VARIANT NAME: ', content.testVariationName)
-          return(
+        // <BuilderContent content={page} model="page"> 
+        //   {(variant, loading, content) => {
+        //   // console.log('PAGE DATA: ', variant);
+        //   // console.log('PAGE CONTENT: ', content);
+        //   // console.log('PAGE PAGE: ', page);
+        //   // console.log('VARIANT ID: ', content.testVariationId);
+        //   // console.log('VARIANT NAME: ', content.testVariationName)
+        //   return(
               <BuilderComponent model="page" 
                 content={page} 
-                data={{ loggedIn: true, variant, testDataToPass, serverResults }}
+                data={{ loggedIn: true, testDataToPass, serverResults }}
                 locale={locale}
                 // contentLoaded={(data, content)=> {
                 //   console.log('CONTNET LOADED: ', data, content)
@@ -151,9 +151,9 @@ export default function Page({
                 >
                 This is default component
               </BuilderComponent>
-          )
-                }}
-          </BuilderContent>
+          // )
+          //       }}
+          // </BuilderContent>
       )}
 
     </>
