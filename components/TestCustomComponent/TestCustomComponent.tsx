@@ -1,29 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Builder, builder, withChildren,  } from '@builder.io/react';
-
-const testExample = (options: any) => {
-  console.log(options)
-}
-
-const text = 'default text test';
-
-// export const TestCustomComponent = (props: any) => {
-//   console.log('PROPS: ', props.builderState);
-
-//   return (
-//     <>
-//       <h2>{props.inputVal}</h2>
-    
-//       <>
-//         {props.list.map((item: any, index: any) => {
-
-//           return <div key={item.number+index}>{item.reviewText}</div>
-//         })}
-//       </>
-//     </>
-//   );
-// };
+import { Builder, builder  } from '@builder.io/react';
 
 export const TestCustomComponent = (props:any) => (
     <>
@@ -39,7 +16,6 @@ export const TestCustomComponent = (props:any) => (
 
 
 
-
 Builder.registerComponent(TestCustomComponent, {
   name: 'Test Custom Comp & 👍 ',
   screenshot: 'https://static.wikia.nocookie.net/elmos-world-fanon/images/d/d9/Hqdefault-1.jpg',
@@ -47,7 +23,7 @@ Builder.registerComponent(TestCustomComponent, {
     {
       name: 'inputVal',
       type: 'text',
-      defaultValue: `${text}`,
+      defaultValue: 'this is some text',
       onChange: (options: any) => {
         console.log('KAHSDFKHASDKFHAKSDHFALKSHD: ', options)
       },
@@ -106,58 +82,12 @@ Builder.registerComponent(TestCustomComponent, {
   ]
 });
 
-// 
-
-
-  // function CustomComponent(props: any) {
-  //   const handleSubmit = () => {
-  //     props.builderState.context.handleSubmit();
-  //   };
-  //   return (
-  //     <div onClick={handleSubmit} >
-  //       {props.inputVal}
-  //       { props?.area?.city}
-  //       {props?.area?.count}
-  //       {props?.area?.stateCode}
-  //     </div>
-  //   )
-  // }
-
-  // Builder.registerComponent(CustomComponent, {
-  //   name: "CustomComponent",
-  //   inputs: [
-  //      {
-  //       name: "inputVal",
-  //       type: "string" 
-  //      }, {
-  //       name: "area",
-  //       type: "object",
-  //       subFields: [
-  //           {
-  //               name: "city",
-  //               type: "string",
-  //               defaultValue: "San Francisco"
-  //           },
-  //           {
-  //               name: "county",
-  //               type: "string",
-  //               defaultValue: "San Francisco"
-  //           },
-  //           {
-  //               name: "stateCode",
-  //               type: "string",
-  //               defaultValue: "CA"
-  //           },
-  //       ]
-  //      } 
-  //   ]
-  // });
 
   export const ContactBlock = (props: any) => {
 
     return (
       <>
-        <h2>{props.header}</h2>
+        <h2 dangerouslySetInnerHTML={{__html: props.header}}></h2>
         <h3>{props.subheader}</h3>
         {props.children}
 
@@ -165,13 +95,13 @@ Builder.registerComponent(TestCustomComponent, {
     );
   };
 
-  Builder.registerComponent(withChildren(ContactBlock), {
+  Builder.registerComponent(ContactBlock, {
     name: 'ContactBlock',
     // noWrap: true,
     inputs: [
       {
         name: 'header',
-        type: 'text',
+        type: 'html',
         // required: true,
         defaultValue: 'here is a default value',
         localized: true
@@ -180,18 +110,6 @@ Builder.registerComponent(TestCustomComponent, {
         name: 'subheader',
         type: 'string',
         defaultValue: 'Whether you’re starting a new project or feeling stuck on a current one, contact us today.',
-      },
-      {
-        name: 'backgroundImage',
-        type: 'file',
-        // required: true
-        // defaultValue: image,
-      },
-      {
-        name: 'backgroundOverlay',
-        type: 'string',
-        enum: ['blue', 'blue-gradient'],
-        defaultValue: 'blue',
       },
   // THESE ARE NOT POPULATING:
       {
@@ -230,4 +148,3 @@ Builder.registerComponent(TestCustomComponent, {
       },
     ],
   });
-  

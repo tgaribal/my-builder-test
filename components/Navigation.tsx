@@ -80,11 +80,10 @@ export const Navigation = (props: any) => {
                 <ul onClick={handleClick} style={{display: 'flex', padding: 0, listStyle: 'none', justifyContent: 'center'}}>
                     {
                         data?.navigationLinks?.map((link: any) => {
-                            return <div key={link.linkUrl} onMouseEnter={handleHover} onMouseLeave={handleHover} style={{ position: 'relative', padding: '20px', cursor: 'pointer' }}>
-                                {link.linkText}
+                            return <div key={link.linkText+link.linkUrl} onMouseEnter={handleHover} onMouseLeave={handleHover} style={{ position: 'relative', padding: '20px', cursor: 'pointer' }}>
                                 <ul style={{ display: 'none', position: "absolute", flexDirection: 'column', left: '20px', zIndex: 1000, background: 'white', padding: 0}}>
                                     {link.subLinks?.map((sublink: any) => {
-                                        return <a key={sublink.linkUrls} href={sublink.linkUrl } style={{ textDecoration: 'none', color: 'black', padding: '5px', border: '1px solid black' }}>
+                                        return <a key={sublink.linkUrl} href={sublink.linkUrl } style={{ textDecoration: 'none', color: 'black', padding: '5px', border: '1px solid black' }}>
                                             {sublink.linkText}
                                         </a>
                                     })}

@@ -1,16 +1,15 @@
 // import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-
+import { useEffect } from 'react';
+import analytics from '@lib/analytics';
 import { useRouter } from 'next/router'
-import { BuilderComponent, Builder, builder, withChildren, BuilderContent, BuilderStoreContext, useIsPreviewing } from '@builder.io/react'
+import { BuilderComponent, Builder, builder, BuilderContent, BuilderStoreContext, useIsPreviewing } from '@builder.io/react'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import { getLayoutProps, getRibbonProps, getCustomCss } from '@lib/get-component-props'
 import { Link } from '@components/Link/Link'
 import '@components/TestCustomComponent/TestCustomComponent';
-import '@components/testerWithChildern';
 import '@components/CustomComponentExample/CustomComponentExample';
-// import '@components/BetterComponent/BetterComponent';
 import '@components/CloudinaryImage';
 import '@builder.io/widgets';
 import { triggerAsyncId } from 'async_hooks';
@@ -34,11 +33,10 @@ export async function getStaticProps({
           urlPath: '/'+ (params?.page?.join('/') || '')
         },
         options: {
-          // includeRefs: true,
-          // noTraverse: false,
+          includeRefs: true,
+          noTraverse: false,
           locale
         },
-        // locale
       })
       .toPromise()) || null
     
@@ -97,7 +95,7 @@ function handleSubmit() {
 export default function Page({
   page,
   serverResults
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+}:  InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
   const isPreviewingInBuilder = useIsPreviewing()
   const show404 = !page && !isPreviewingInBuilder
@@ -122,33 +120,38 @@ export default function Page({
       ) : (
         // <BuilderContent content={page} model="page"> 
         //   {(variant, loading, content) => {
-        //   // console.log('PAGE DATA: ', variant);
-        //   // console.log('PAGE CONTENT: ', content);
-        //   // console.log('PAGE PAGE: ', page);
-        //   // console.log('VARIANT ID: ', content.testVariationId);
-        //   // console.log('VARIANT NAME: ', content.testVariationName)
+        // //   // console.log('PAGE DATA: ', variant);
+        // //   // console.log('PAGE CONTENT: ', content);
+        // //   // console.log('PAGE PAGE: ', page);
+        // //   // console.log('VARIANT ID: ', content.testVariationId);
+        // //   // console.log('VARIANT NAME: ', content.testVariationName)
         //   return(
-              <BuilderComponent model="page" 
+              <BuilderComponent
+                model="page" 
                 content={page} 
                 data={{ loggedIn: true, testDataToPass, serverResults }}
                 locale={locale}
-                // contentLoaded={(data, content)=> {
-                //   console.log('CONTNET LOADED: ', data, content)
-                // }}
-                // context={{
-                //   handleSubmit, 
-                //   clickOnPage: (e: any) => {
-                //     console.log('EVENT: ', e.target.dataset)
-                //     // if(e.target.dataset) {
-                //       //   state.testingEvent = e.target.dataset
-                //       // }
-                //       builder.track('custom-event');
-                //       builder.track('click-by-model', { meta: {modelClicked: 'page', isTesting: true}});
-                //       console.log('CLICK')
-                //       builder.trackConversion(99);
-                //     }
-                //   }} >
-                >
+                contentLoaded={(data, content)=> {
+                  console.log('hellur', content.id, content.name, content.testVariationId, content.testVariationName)
+                  // console.log('CONTNET LOADED: ', data, content)
+
+                    // analytics.page({
+                    //   variantId
+                    // }) 
+                }}
+                context={{
+                  handleSubmit, 
+                  clickOnPage: (e: any) => {
+                    console.log('EVENT: ', e.target.dataset)
+                    // if(e.target.dataset) {
+                      //   state.testingEvent = e.target.dataset
+                      // }
+                      builder.track('custom-event');
+                      builder.track('click-by-model', { meta: {modelClicked: 'page', isTesting: true}});
+                      console.log('CLICK')
+                      builder.trackConversion(99);
+                    }
+                  }} >
                 This is default component
               </BuilderComponent>
           // )

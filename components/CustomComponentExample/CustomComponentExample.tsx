@@ -17,17 +17,7 @@ export const ExampleButton = (props: any) => {
     )
   };
 
-const wrap = (WrappedComponent:any) => (props:any) => {
-  console.log('WRAPPED PROPS: ', props);
-  return (
-    <WrappedComponent {...props.attributes}
-        {...props}
-        className={[props.className, props.attributes?.className].filter(Boolean).join(' ')}
-        style={{ ...props.style, ...props?.attributes?.style }}/>
-  )
-}
-
-Builder.registerComponent(withChildren(wrap(ExampleButton)), {
+Builder.registerComponent(withChildren(ExampleButton), {
   name: "Example Button",
   noWrap: true,
   screenshot: 'https://cdn.builder.io/api/v1/image/assets%2Fe37b966ec695434bb21e97442a4a9f46%2F7fb971c038f34dafa45a645f5d278eb3',

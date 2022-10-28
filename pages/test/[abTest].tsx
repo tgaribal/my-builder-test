@@ -1,14 +1,12 @@
 // import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { BuilderComponent, Builder, builder, withChildren, BuilderContent } from '@builder.io/react'
+import { BuilderComponent, Builder, builder, BuilderContent } from '@builder.io/react'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import { getLayoutProps, getRibbonProps, getCustomCss } from '@lib/get-component-props'
 import { Link } from '@components/Link/Link'
 import '@components/TestCustomComponent/TestCustomComponent';
-import '@components/testerWithChildern';
-// import '@components/BetterComponent/BetterComponent';
 import '@builder.io/widgets';
 
 const BUILDER_API_KEY = 'e37b966ec695434bb21e97442a4a9f46'
@@ -96,7 +94,6 @@ export default function Page({
             <BuilderComponent 
               model="page"
               data={ data }
-              // {...(isLive && {content: data?.testPage?.value })}
               content={ data?.testPage?.value }
               options={{ includeRefs: true }} >
               This is default component

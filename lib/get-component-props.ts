@@ -1,9 +1,10 @@
 import { builder } from "@builder.io/react";
 
 export async function getLayoutProps() {
+    const siteSettings = await builder.get('site-settings', { options: {includeRefs: true} }).toPromise() || null
     // console.log('helllasldkalskdas: ', await builder.getAll('site-settings', { options: {includeRefs: true} }))
     return {
-        siteSettings: await builder.get('site-settings', { options: {includeRefs: true} }).toPromise() || null
+        siteSettings
     }
 }
 

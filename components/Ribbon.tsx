@@ -1,19 +1,19 @@
 import { builder, BuilderComponent, Builder } from '@builder.io/react'
 import '@builder.io/widgets';
 
-const BUILDER_API_KEY = 'e37b966ec695434bb21e97442a4a9f46'
-builder.init(BUILDER_API_KEY)
+// const BUILDER_API_KEY = 'e37b966ec695434bb21e97442a4a9f46'
+// builder.init(BUILDER_API_KEY)
 
-export const getStaticProps = async () => {
+// export const getStaticProps = async () => {
 
-  const content = await builder.get('ribbon').promise() || null;
+//   const content = await builder.get('ribbon').promise() || null;
 
-  return { 
-    props: { content }, 
-    revalidate: true,
-    notFound: !content
-  }
-}
+//   return { 
+//     props: { content }, 
+//     revalidate: true,
+//     notFound: !content
+//   }
+// }
 
 export default function BuilderRibbon({ ribbon }: any) {
     return (
