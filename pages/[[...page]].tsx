@@ -147,6 +147,7 @@ export default function Page({
                       //   state.testingEvent = e.target.dataset
                       // }
                       builder.track('custom-event');
+                      builder.track('whateverYouWant');
                       builder.track('click-by-model', { meta: {modelClicked: 'page', isTesting: true}});
                       console.log('CLICK')
                       builder.trackConversion(99);
