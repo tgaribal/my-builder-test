@@ -65,9 +65,9 @@ export async function getStaticPaths() {
   const pages = await builder.getAll('page', {
     limit: 100,
     options: { noTargeting: true },
-    omit: 'data.blocks',
+    fields: 'data.url',
   })
-
+  
   console.log('PAGESSSS', pages.length)
   const paths = pages.map((thing) => {
     console.log(thing)
