@@ -146,6 +146,7 @@ export default function Page({
                     // if(e.target.dataset) {
                       //   state.testingEvent = e.target.dataset
                       // }
+                      builder.track('add-to-bag')
                       builder.track('custom-event');
                       builder.track('whateverYouWant');
                       builder.track('click-by-model', { meta: {modelClicked: 'page', isTesting: true}});

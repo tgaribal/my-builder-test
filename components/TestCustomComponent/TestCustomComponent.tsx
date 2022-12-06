@@ -1,23 +1,28 @@
 import React from 'react';
 import Link from 'next/link';
-import { Builder, builder  } from '@builder.io/react';
+import { useContext } from 'react';
+import { Builder, BuilderStoreContext  } from '@builder.io/react';
 
-export const TestCustomComponent = (props:any) => (
-    <>
+export const TestCustomComponent = (props:any) => {
+  // const builderContext = useContext(BuilderStoreContext);
+  
+  return (
+    <div {...props}>
       <h2>{props.inputVal}</h2>
-    
       <>
         {props.list.map((item: any, index: any) => {
           return <div key={item.number+index}>{item.reviewText}</div>
         })}
       </>
-    </>
-  );
+    </div>
+  )
+      };
 
 
 
 Builder.registerComponent(TestCustomComponent, {
   name: 'Test Custom Comp & 👍 ',
+  noWrap: true,
   screenshot: 'https://static.wikia.nocookie.net/elmos-world-fanon/images/d/d9/Hqdefault-1.jpg',
   inputs: [
     {
@@ -26,6 +31,7 @@ Builder.registerComponent(TestCustomComponent, {
       defaultValue: 'this is some text',
       onChange: (options: any) => {
         console.log('KAHSDFKHASDKFHAKSDHFALKSHD: ', options)
+
       },
     },
     {
