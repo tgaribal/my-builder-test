@@ -37,6 +37,7 @@ export async function getStaticProps({
           noTraverse: false,
           locale
         },
+        locale
       })
       .toPromise()) || null
     

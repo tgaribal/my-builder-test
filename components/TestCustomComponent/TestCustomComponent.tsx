@@ -90,7 +90,7 @@ Builder.registerComponent(TestCustomComponent, {
 
 
   export const ContactBlock = (props: any) => {
-
+    console.log('PROPS: ', props)
     return (
       <>
         <h2 dangerouslySetInnerHTML={{__html: props.header}}></h2>
