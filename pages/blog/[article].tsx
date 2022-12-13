@@ -1,6 +1,6 @@
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
-import { BuilderComponent, Builder, builder } from '@builder.io/react'
+import { BuilderComponent, BuilderContent, Builder, builder } from '@builder.io/react'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import { getLayoutProps, getRibbonProps, getCustomCss } from '@lib/get-component-props'
@@ -30,6 +30,7 @@ export async function getStaticProps({
     (await builder
       .get('article-page')
       .toPromise()) || null;
+      console.log('ARTICLE STUFF: ', articleData)
 
       // console.log('TEMPLATE: ', articleData, articlePageTemplate)
   return {
@@ -64,7 +65,7 @@ export default function Article({
   articlePageTemplate
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter()
-  // console.log('ARTICLE DATA: ', articleData)
+  console.log('ARTICLE DATA: ', articleData)
   // console.log('ARTICLE PAGE TEMPLATE: ', articlePageTemplate)
   if (router.isFallback) {
     return <h1>Loading...</h1>
@@ -88,8 +89,16 @@ export default function Article({
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
+      <BuilderContent modelName="article">
+      {(variant, loading, content) => {
+        console.log(variant)
+        return (
 
-      <BuilderComponent model="article-page" content={articlePageTemplate} data={{ article: articleData?.data }} />
+          <BuilderComponent model="article-page" content={articlePageTemplate} data={{ article: articleData?.data }} />
+        )
+      }
+      }
+    </BuilderContent>
     </>
   )
 }

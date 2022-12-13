@@ -114,6 +114,7 @@ export default function Page({
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         {!page && <meta name="robots" content="noindex" />}
+       
       </Head>
       {show404 ? (
         <DefaultErrorPage statusCode={404} />
