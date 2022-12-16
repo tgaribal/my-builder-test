@@ -74,6 +74,7 @@ export const Navigation = (props: any) => {
                     {
                         data?.navigationLinks?.map((link: any) => {
                             return <div key={link.linkText+link.linkUrl} style={{ position: 'relative', padding: '20px', cursor: 'pointer' }}>
+                                {link.linkText}
                                 <ul style={{ display: 'none', position: "absolute", flexDirection: 'column', left: '20px', zIndex: 1000, background: 'white', padding: 0}}>
                                     {link.subLinks?.map((sublink: any) => {
                                         return <a key={sublink.linkUrl} href={sublink.linkUrl } style={{ textDecoration: 'none', color: 'black', padding: '5px', border: '1px solid black' }}>
