@@ -1,21 +1,11 @@
 
 import { BuilderContent } from "@builder.io/react"
-import '@builder.io/widgets';
-import builder from "@config/builder";
-import { captureRejectionSymbol } from "events";
 
 export const Navigation = (props: any) => {
-    // console.log('NAVIGATION: ', props)
-    const handleHover = (e: any) => {
-        // builder.track
-        // e.stopPropagation;
-        // e.target.children[0]?.style?.display === 'none' ? e.target.children[0].style.display = 'flex' : e.target.children[0].style.display = 'none';
-    }
-
+    
     const createNewAuthor = async(url = 'https://builder.io/api/v1/write/author') => {
         const data = '{ data: { name: "Tim" } }'
 
-        console.log('create');
         const response = await fetch(url, {
             method: 'POST',
             headers: {
@@ -28,16 +18,16 @@ export const Navigation = (props: any) => {
     }
 
     const dataObject = {
-        // query: [
-        //     {
-        //       "property": "urlPath",
-        //       "operator": "is", // can be `startsWith` to match any urls that starts with value
-        //       "value": "/write-api/success" // must start with /
-        //     }
-        //   ],
-        name: 'GROUPLE',
+        query: [
+            {
+              "property": "urlPath",
+              "operator": "is", // can be `startsWith` to match any urls that starts with value
+              "value": "/write-api/success" // must start with /
+            }
+          ],
+        name: 'test content entry',
         data: {
-           userName: 'Anu',
+           userName: 'test name',
            review: 'Testing',
            productSlug: 'demo-product',
            date: new Date(),
@@ -75,12 +65,15 @@ export const Navigation = (props: any) => {
         //  }) 
     }  
     
-    return (<BuilderContent content={props.siteSettings} model="site-settings">{ (data: any) => {
+    return (
+        <BuilderContent content={props.siteSettings} model="site-settings">{ (data: any, loading, fullContent) => {
+        console.log('VARIANT DATA: ', data);
+        console.log('FULLCONTENT: ', fullContent)
             return <>
                 <ul onClick={handleClick} style={{display: 'flex', padding: 0, listStyle: 'none', justifyContent: 'center'}}>
                     {
                         data?.navigationLinks?.map((link: any) => {
-                            return <div key={link.linkText+link.linkUrl} onMouseEnter={handleHover} onMouseLeave={handleHover} style={{ position: 'relative', padding: '20px', cursor: 'pointer' }}>
+                            return <div key={link.linkText+link.linkUrl} style={{ position: 'relative', padding: '20px', cursor: 'pointer' }}>
                                 <ul style={{ display: 'none', position: "absolute", flexDirection: 'column', left: '20px', zIndex: 1000, background: 'white', padding: 0}}>
                                     {link.subLinks?.map((sublink: any) => {
                                         return <a key={sublink.linkUrl} href={sublink.linkUrl } style={{ textDecoration: 'none', color: 'black', padding: '5px', border: '1px solid black' }}>

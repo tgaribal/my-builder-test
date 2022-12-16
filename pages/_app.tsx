@@ -13,7 +13,6 @@ builder.init('e37b966ec695434bb21e97442a4a9f46')
 
 export default function MyApp({ Component, pageProps }: any) {
   // console.log('pageProps ', pageProps)
-  // console.log('MODEL: ', builder.editingModel!)
 
   return (
     <>

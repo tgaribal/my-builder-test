@@ -1,20 +1,15 @@
-// import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
-import { useEffect } from 'react';
-import analytics from '@lib/analytics';
 import { useRouter } from 'next/router'
-import { BuilderComponent, Builder, builder, BuilderContent, BuilderStoreContext, useIsPreviewing } from '@builder.io/react'
+import { BuilderComponent, BuilderContent, builder, useIsPreviewing } from '@builder.io/react'
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import { getLayoutProps, getRibbonProps, getCustomCss } from '@lib/get-component-props'
-import { Link } from '@components/Link/Link'
 import '@components/TestCustomComponent/TestCustomComponent';
 import '@components/CustomComponentExample/CustomComponentExample';
 import '@components/CloudinaryImage';
 import '@builder.io/widgets';
-import { triggerAsyncId } from 'async_hooks';
 
-const BUILDER_API_KEY = 'e37b966ec695434bb21e97442a4a9f46' //'74024d7be33d4bbd8808e0788c7710b5' //
+const BUILDER_API_KEY = 'e37b966ec695434bb21e97442a4a9f46'
 builder.init(BUILDER_API_KEY)
 
 const locale = 'en-US'
@@ -23,9 +18,7 @@ const locale = 'en-US'
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ page: string[] }>) {
-  // console.log('URL:',  (params?.page?.join('/') || ''))
-  // const info = await(builder.get('page', { userAttributes: { urlPath: '/' }}).toPromise());
-  // console.log('info: ', info)
+
   const page = (
     await builder
       .get('page', {
@@ -41,10 +34,9 @@ export async function getStaticProps({
       })
       .toPromise()) || null
     
-      console.log('PAGEPAGE', page)
+      // console.log('PAGEPAGE', page)
       const serverResults = { text: 'headerText', person: { name: 'tim', employer: 'Builder'} }
       
-// console.log('PAGEERAER', page)
   return {
     props: {
       page,
@@ -69,14 +61,13 @@ export async function getStaticPaths() {
     fields: 'data.url',
   })
   
-  console.log('PAGESSSS', pages.length)
+  // console.log('PAGESSSS', pages.length)
   const paths = pages.map((thing) => {
-    console.log(thing)
+    // console.log(thing)
     const page = `${thing.data?.url}`;
-    // console.log('PAGESSSS: ', page);
     return page;
   });
-  console.log('PAGES? : ', paths)
+ 
   return {
     paths,
     fallback: true,
@@ -92,7 +83,7 @@ export async function getStaticPaths() {
 function handleSubmit() {
   console.log('hello!!!')
 }
-// React Component
+
 export default function Page({
   page,
   serverResults
@@ -100,7 +91,8 @@ export default function Page({
   const router = useRouter()
   const isPreviewingInBuilder = useIsPreviewing()
   const show404 = !page && !isPreviewingInBuilder
-  console.log('client page: ', page);
+  // console.log('client page: ', page);
+
   const testFn = () => {
     console.log('hello');
   }
@@ -120,21 +112,16 @@ export default function Page({
       {show404 ? (
         <DefaultErrorPage statusCode={404} />
       ) : (
-        // <BuilderContent content={page} model="page"> 
-        //   {(variant, loading, content) => {
-        // //   // console.log('PAGE DATA: ', variant);
-        // //   // console.log('PAGE CONTENT: ', content);
-        // //   // console.log('PAGE PAGE: ', page);
-        // //   // console.log('VARIANT ID: ', content.testVariationId);
-        // //   // console.log('VARIANT NAME: ', content.testVariationName)
-        //   return(
+        <BuilderContent content={page} model="page"> 
+          {(variant, loading, content) => {
+            return (
               <BuilderComponent
                 model="page" 
-                content={page} 
+                content={variant} 
                 data={{ loggedIn: true, testDataToPass, serverResults }}
                 locale={locale}
                 contentLoaded={(data, content)=> {
-                  console.log('hellur', content.id, content.name, content.testVariationId, content.testVariationName)
+                  // console.log('hellur', data, content, content.id, content.name, content.testVariationId, content.testVariationName)
                   // console.log('CONTNET LOADED: ', data, content)
 
                     // analytics.page({
@@ -158,11 +145,11 @@ export default function Page({
                   }} >
                 This is default component
               </BuilderComponent>
-          // )
-          //       }}
-          // </BuilderContent>
-      )}
-
+            )
+          }}
+          </BuilderContent>
+          )
+        }
     </>
   )
 }

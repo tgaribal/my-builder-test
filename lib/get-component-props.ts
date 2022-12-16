@@ -2,7 +2,9 @@ import { builder } from "@builder.io/react";
 
 export async function getLayoutProps() {
     const siteSettings = await builder.get('site-settings', { options: {includeRefs: true} }).toPromise() || null
-    // console.log('helllasldkalskdas: ', await builder.getAll('site-settings', { options: {includeRefs: true} }))
+    console.log('THIS SOME SITE SETTINGS: ', siteSettings.name)
+    // return {}
+
     return {
         siteSettings
     }
@@ -10,18 +12,16 @@ export async function getLayoutProps() {
 
 export async function getRibbonProps() {
     const ribbon = await builder.get('ribbon', { options: { urlPath: "/test"} }).toPromise()|| null
-    // console.log('RIBBONS!!', ribbon);
+    console.log('THIS SOME RIBBONS: ', ribbon.name);
     return {
         ribbon
-        // ribbon: await builder.getAll('ribbon').toPromise() || null
     }
 }
 
 export async function getCustomCss() {
     const customCss = await builder.getAll('custom-css', { options: { noTraverse: false }})|| null
-    // console.log('ALL CSS!!', customCss[0]);
+    console.log('THIS SOME CUSTOMCSS: ', customCss[0].name);
     return {
         customCss
-        // ribbon: await builder.getAll('ribbon').toPromise() || null
     }
 }
