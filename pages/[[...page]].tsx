@@ -112,9 +112,9 @@ export default function Page({
       {show404 ? (
         <DefaultErrorPage statusCode={404} />
       ) : (
-        // <BuilderContent content={page} model="page"> 
-        //   {(variant, loading, content) => {
-        //     return (
+        <BuilderContent content={page} model="page"> 
+          {(variant, loading, content) => {
+            return (
               <BuilderComponent
                 model="page" 
                 content={page} 
@@ -145,9 +145,9 @@ export default function Page({
                   }} >
                 This is default component
               </BuilderComponent>
-          //   )
-          // }}
-          // </BuilderContent>
+            )
+          }}
+          </BuilderContent>
           )
         }
     </>
