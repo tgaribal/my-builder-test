@@ -76,34 +76,36 @@ export const Navigation = (props: any) => {
         //  }) 
     }  
 
-    return (
-        navData.map( (nav: any) => {
+    return (<>
+        {navData.map((nav: any) => {
 
-            return (
+            return(
                 <BuilderContent content={nav} key={nav.id} model="site-settings">{ (data: any, loading, fullContent) => {
-                console.log('VARIANT DATA: ', data);
-                console.log('FULLCONTENT: ', fullContent?.id)
-                return <>
-                    <ul onClick={handleClick} style={{display: 'flex', padding: 0, listStyle: 'none', justifyContent: 'center'}}>
-                        {
-                            data?.navigationLinks?.map((link: any) => {
-                                return <div key={link.linkText+link.linkUrl} style={{ position: 'relative', padding: '20px', cursor: 'pointer' }}>
-                                    {link.linkText}
-                                    <ul style={{ display: 'none', position: "absolute", flexDirection: 'column', left: '20px', zIndex: 1000, background: 'white', padding: 0}}>
-                                        {link.subLinks?.map((sublink: any) => {
-                                            return <a key={sublink.linkUrl} href={sublink.linkUrl } style={{ textDecoration: 'none', color: 'black', padding: '5px', border: '1px solid black' }}>
-                                                {sublink.linkText}
-                                            </a>
-                                        })}
-                                    </ul>
-                                </div>
-                            })
-                        }
-                    </ul>
-                    {props.children}
-                </>
-            }}</BuilderContent>
-        )})
+                        console.log('VARIANT DATA: ', data);
+                        console.log('FULLCONTENT: ', fullContent?.id)
+                        return <>
+                            <ul onClick={handleClick} style={{display: 'flex', padding: 0, listStyle: 'none', justifyContent: 'center'}}>
+                                {
+                                    data?.navigationLinks?.map((link: any) => {
+                                        return <div key={link.linkText+link.linkUrl} style={{ position: 'relative', padding: '20px', cursor: 'pointer' }}>
+                                            {link.linkText}
+                                            <ul style={{ display: 'none', position: "absolute", flexDirection: 'column', left: '20px', zIndex: 1000, background: 'white', padding: 0}}>
+                                                {link.subLinks?.map((sublink: any) => {
+                                                    return <a key={sublink.linkUrl} href={sublink.linkUrl } style={{ textDecoration: 'none', color: 'black', padding: '5px', border: '1px solid black' }}>
+                                                        {sublink.linkText}
+                                                    </a>
+                                                })}
+                                            </ul>
+                                        </div>
+                                    })
+                                }
+                            </ul>
+                            {props.children}
+                        </>
+                    }}</BuilderContent>
+                )
+            })}
+        </>
     )
 
 //     const Flyout = (links: any) => {
