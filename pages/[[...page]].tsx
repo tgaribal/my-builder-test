@@ -114,12 +114,20 @@ export default function Page({
       ) : (
         <BuilderContent content={page} model="page"> 
           {(variant, loading, content) => {
+            // console.log('VARIANTE: ', variant)
+            // console.log('VARIANTE full: ', content)
             return (
               <BuilderComponent
                 model="page" 
                 content={page} 
                 data={{ loggedIn: true, testDataToPass, serverResults }}
                 locale={locale}
+                // options={{
+                //   includeRefs: true,
+                //   options: {
+                //     noTraverse: false
+                //   }
+                // }}
                 contentLoaded={(data, content)=> {
                   // console.log('hellur', data, content, content.id, content.name, content.testVariationId, content.testVariationName)
                   // console.log('CONTNET LOADED: ', data, content)
@@ -153,82 +161,3 @@ export default function Page({
     </>
   )
 }
-
-
-
-// export const ContextComponent = (props: any) => {
-
-//   return (
-//     <>
-//       <h2>{props.inputVal}</h2>
-    
-//     </>
-//   );
-// };
-
-// Builder.registerComponent(ContextComponent, {
-//   name: 'Test Custom Comp & 👍 ',
-//   inputs: [
-//     {
-//       name: 'inputVal',
-//       type: 'text',
-//       defaultValue: 'default value',
-//       onChange: (options: any) => {
-//         console.log('KAHSDFKHASDKFHAKSDHFALKSHD: ', options)
-//       },
-//     },
-//     {
-//       name: 'json',
-//       type: 'json',
-//       defaultValue: []
-//     },
-//     {
-//       name: 'list',
-//       type: 'list',
-//       defaultValue: [{ 
-//         defaultText:  'default text of this thing'
-//       }],
-//       subFields: [
-//         {
-//           name: 'reviewText',
-//           type: 'string',
-//           defaultValue: '"You guys are the best"'
-//         },
-//         {
-//           name: 'number',
-//           type: 'string',
-//           required: true,
-//           defaultValue: '1',
-//           // onChange: (options: any) => {
-//           //   console.log('KAHSDFKHASDKFHAKSDHFALKSHD: ')
-//           // },
-//           regex: {
-//             // pattern to test, like "^\/[a-z]$" 
-//             pattern: "^[1-9]?[0-9]{1}$|^100$",
-//             // flags for the RegExp constructor, e.g. "gi"  */
-//             options: "g",
-//             // message to display to end-users if the regex fails
-//             message: "must use a number between 1 and 10 "
-//           }
-//         },
-//         {
-//           name: 'reviewAuthor',
-//           type: 'string',
-//           defaultValue: 'Jane Smith',
-//         },
-//       ],
-//       onChange: (options: any) => {
-//         console.log('OPTIONS NUMBER: ', options.get('number'))
-//         options.get('list').forEach((item: any) => console.log(item._data.get('number')))
-//         console.log('OPTIONS subfields: ', options.get('list'))
-
-//         if (options.get('list').length > 4) {
-//           console.log('in on change isError');
-//           options.set('list', options.get('list').slice(0, 4))
-//         }
-//       }
-//     }
-//   ]
-// });
-
-
