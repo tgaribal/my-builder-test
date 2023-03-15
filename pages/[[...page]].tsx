@@ -63,7 +63,7 @@ export async function getStaticPaths() {
   })
   // console.log("PAGES PAGES pages", pages)
   
-  const paths = pages.map((thing) => {
+  const paths = pages.map((thing:any) => {
     // console.log('PAGES PAAGES: ', thing?.data?.url)
     const page = `${thing?.data?.url}`;
     return page;

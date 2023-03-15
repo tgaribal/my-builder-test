@@ -6,7 +6,6 @@ import Head from 'next/head'
 import builderConfig from '@config/builder'
 // loading widgets dynamically to reduce bundle size, will only be included in bundle when is used in the content
 import '@builder.io/widgets/dist/lib/builder-widgets-async'
-import { useEffect, useState } from 'react'
 import { queryParamHeaders } from 'lib/query-param-headers.js';
 import { decodeOptions } from '@lib/utils'
 
@@ -25,6 +24,8 @@ export async function getStaticProps({
     const searchParams = new URLSearchParams(options);
     queryString = searchParams.toString();
   }
+
+  //@ts-ignore
   const headers = queryParamHeaders[options.kw] ? queryParamHeaders[options.kw] : queryParamHeaders.default;
 
   const queryParamPage = (await builder
@@ -53,7 +54,7 @@ export async function getStaticPaths() {
     options: { noTargeting: true },
     fields: 'data.url',
   })
-  // console.log('QUERY PARAM: ', pages)
+
   return {
     paths: [], // pages.map((page) => `${page.data?.url}`),
     fallback: true,

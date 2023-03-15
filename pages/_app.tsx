@@ -1,5 +1,4 @@
 import type { AppProps } from 'next/app'
-
 import { builder, Builder } from '@builder.io/react'
 import builderConfig from '@config/builder'
 import { Navigation } from '@components/Navigation'
