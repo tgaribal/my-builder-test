@@ -18,12 +18,13 @@ const locale = 'en-US'
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ page: string[] }>) {
-
+ console.log('STATIG PROPS')
   const page = (
     await builder
       .get('page', {
         userAttributes: {
-          urlPath: '/'+ (params?.page?.join('/') || '')
+          urlPath: '/'+ (params?.page?.join('/') || ''),
+          // loggedIn: false
         },
         options: {
           includeRefs: true,
@@ -34,7 +35,7 @@ export async function getStaticProps({
       })
       .toPromise()) || null
     
-      // console.log('PAGEPAGE', page)
+      console.log('PAGEPAGE', page)
       const serverResults = { text: 'headerText', person: { name: 'tim', employer: 'Builder'} }
       
   return {
@@ -54,20 +55,20 @@ export async function getStaticProps({
 
 // returns a list
 export async function getStaticPaths() {
-
+//  console.log("STATIC PATHS")
   const pages = await builder.getAll('page', {
-    limit: 100,
+    // limit: 100,
     options: { noTargeting: true },
-    fields: 'data.url',
+    omit: 'data.blocks'
   })
+  // console.log("PAGES PAGES pages", pages)
   
-  // console.log('PAGESSSS', pages.length)
   const paths = pages.map((thing) => {
-    // console.log(thing)
-    const page = `${thing.data?.url}`;
+    // console.log('PAGES PAAGES: ', thing?.data?.url)
+    const page = `${thing?.data?.url}`;
     return page;
   });
- 
+  // const paths = [];
   return {
     paths,
     fallback: true,
@@ -120,6 +121,11 @@ export default function Page({
               <BuilderComponent
                 model="page" 
                 content={page} 
+                // options={{
+                //   userAttributes: {
+                //     loggedIn: true
+                //   }
+                // }}
                 data={{ loggedIn: true, testDataToPass, serverResults }}
                 locale={locale}
                 // options={{

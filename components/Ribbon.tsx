@@ -6,6 +6,7 @@ export default function BuilderRibbon({ ribbon }: any) {
         <BuilderComponent
             model="ribbon"
             content={ribbon}
+            data={{ userName: "Gustavo" }}
             ></BuilderComponent>
     )
 

@@ -3,30 +3,43 @@ import { BuilderContent, builder } from "@builder.io/react";
 import { useEffect, useState } from 'react';
 
 export const Navigation = (props: any) => {
+    //client-side
     const [navData, setNavData] = useState<any[]>([]);
+
     useEffect(() => {
+        console.log('whaaaa outside setProperties')
         const setBuilderProperties = async () => {
-            const siteSettings = (await builder.getAll('site-settings', { limit: 3, options: {includeRefs: true} }) || null);
+            console.log('whaaaa before')
+            const siteSettings = (await builder.get('site-settings', { options: {includeRefs: true} }).toPromise() || null);
+            console.log('whaaaa after')
             console.log('whaaaa', siteSettings)
-            setNavData(siteSettings);
+            setNavData([siteSettings]);
         }
 
         setBuilderProperties();
     }, []);
-    
-    // const createNewAuthor = async(url = 'https://builder.io/api/v1/write/author') => {
-    //     const data = '{ data: { name: "Tim" } }'
+
+    // const createNewAuthor = async(url = 'https://builder.io/api/v1/write/author/d76c027403464df1a156365af6168841_fb859711e12a4d25ac3e3f8472da2e2e?apiKey=d76c027403464df1a156365af6168841') => {
+    //     let data = await fetch('https://cdn.builder.io/api/v2/content/author?apiKey=d76c027403464df1a156365af6168841&query.id=d76c027403464df1a156365af6168841_fb859711e12a4d25ac3e3f8472da2e2e&limit=1')
+    //     data = await data.json()
+    //     let author = { data: {}};
+    //     author.data = {...data.results[0].data};
+
+    //     author.data.name = 'testing'
+    //     console.log('DATA: ', author, data)
 
     //     const response = await fetch(url, {
-    //         method: 'POST',
+    //         method: 'PUT',
     //         headers: {
-    //             Authorization: 'Bearer bpk-0209a684b0634c38bcf15808f0487182'
+    //             Authorization: 'Bearer bpk-463e1b332701495b960d9d6c95c17f83'
     //         },
     //         body: JSON.stringify(data)
     //     }); 
     //     console.log('RESPONSE: ', response);
     //     return response.json();
     // }
+
+
 
     // const dataObject = {
     //     query: [
@@ -76,27 +89,34 @@ export const Navigation = (props: any) => {
         //  }) 
     }  
 
-    return (<>
+    return <>
+        {/* client-side */}
         {navData.map((nav: any) => {
 
+        {/* server-side */}
+        {/* {props?.siteSettings?.map((nav: any) => {  */}
             return(
                 <BuilderContent content={nav} key={nav.id} model="site-settings">{ (data: any, loading, fullContent) => {
                         console.log('VARIANT DATA: ', data);
                         console.log('FULLCONTENT: ', fullContent?.id)
+                        if (loading) {
+                            return "Loading..."
+                        }
                         return <>
                             <ul onClick={handleClick} style={{display: 'flex', padding: 0, listStyle: 'none', justifyContent: 'center'}}>
                                 {
                                     data?.navigationLinks?.map((link: any) => {
-                                        return <div key={link.linkText+link.linkUrl} style={{ position: 'relative', padding: '20px', cursor: 'pointer' }}>
-                                            {link.linkText}
-                                            <ul style={{ display: 'none', position: "absolute", flexDirection: 'column', left: '20px', zIndex: 1000, background: 'white', padding: 0}}>
-                                                {link.subLinks?.map((sublink: any) => {
-                                                    return <a key={sublink.linkUrl} href={sublink.linkUrl } style={{ textDecoration: 'none', color: 'black', padding: '5px', border: '1px solid black' }}>
-                                                        {sublink.linkText}
-                                                    </a>
-                                                })}
-                                            </ul>
-                                        </div>
+                                        // return <div key={link.linkText+link.linkUrl} style={{ position: 'relative', padding: '20px', cursor: 'pointer' }}>
+                                        //     {link.linkText}
+                                        //     <ul style={{ display: 'none', position: "absolute", flexDirection: 'column', left: '20px', zIndex: 1000, background: 'white', padding: 0}}>
+                                        //         {link.subLinks?.map((sublink: any) => {
+                                        //             return <a key={sublink.linkUrl} href={sublink.linkUrl } style={{ textDecoration: 'none', color: 'black', padding: '5px', border: '1px solid black' }}>
+                                        //                 {sublink.linkText}
+                                        //             </a>
+                                        //         })}
+                                        //     </ul>
+                                        // </div>
+                                        return link?.linkText
                                     })
                                 }
                             </ul>
@@ -106,7 +126,6 @@ export const Navigation = (props: any) => {
                 )
             })}
         </>
-    )
 
 //     const Flyout = (links: any) => {
 //         // console.log('LINK GROUP: ', links)

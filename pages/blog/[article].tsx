@@ -1,6 +1,7 @@
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import { useRouter } from 'next/router'
 import { BuilderComponent, BuilderContent, Builder, builder } from '@builder.io/react'
+import { createAdminApiClient } from '@builder.io/admin-sdk';
 import DefaultErrorPage from 'next/error'
 import Head from 'next/head'
 import { getLayoutProps, getRibbonProps, getCustomCss } from '@lib/get-component-props'
@@ -8,6 +9,7 @@ import '@builder.io/widgets';
 
 const BUILDER_API_KEY = 'e37b966ec695434bb21e97442a4a9f46'
 builder.init(BUILDER_API_KEY)
+
 
 // tells you what paths are being built
 export async function getStaticProps({
@@ -64,6 +66,7 @@ export default function Article({
   articleData,
   articlePageTemplate
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+
   const router = useRouter()
   console.log('ARTICLE DATA: ', articleData)
   // console.log('ARTICLE PAGE TEMPLATE: ', articlePageTemplate)
@@ -83,7 +86,7 @@ export default function Article({
       </>
     )
   }
-
+  const userData = { name: 'Tim', account: true}
   return (
     <>
       <Head>
@@ -94,7 +97,7 @@ export default function Article({
         console.log(variant)
         return (
 
-          <BuilderComponent model="article-page" content={articlePageTemplate} data={{ article: articleData?.data }} />
+          <BuilderComponent model="article-page" content={articlePageTemplate} data={{ article: articleData?.data, user:  userData }} />
         )
       }
       }

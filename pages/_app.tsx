@@ -17,7 +17,7 @@ export default function MyApp({ Component, pageProps }: any) {
   return (
     <>
       <BuilderRibbon ribbon={pageProps.ribbon}></BuilderRibbon>
-      <Navigation siteSettings={pageProps.siteSettings} />
+      <Navigation  siteSettings={pageProps.siteSettings} />
       <Component {...pageProps} />
     </>
   )
