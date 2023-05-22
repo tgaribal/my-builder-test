@@ -67,7 +67,7 @@ export default function Page({
       {show404 ? (
         <DefaultErrorPage statusCode={404} />
       ) : (
-        <BuilderComponent model="article-template-example" content={page} data={{ article: article }} />
+        <BuilderComponent model="article-template-example" locale="es" content={page} data={{ article: article, user: 'Raymond' }} />
       )}
     </>
   )

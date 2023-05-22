@@ -25,7 +25,10 @@ Builder.registerComponent(SiteRibbon, {
   inputs: [
       { 
         name: 'text', 
-        type: 'text'
+        type: 'text',
+        localized: true,
+        defaultValue: 'this is the default'
+
       }, {
         name: 'linkUrl', 
         type: 'url'

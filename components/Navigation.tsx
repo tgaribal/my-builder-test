@@ -1,5 +1,6 @@
 
 import { BuilderContent, builder } from "@builder.io/react";
+import { ReadStream } from "fs";
 import { useEffect, useState } from 'react';
 
 export const Navigation = (props: any) => {
@@ -81,6 +82,7 @@ export const Navigation = (props: any) => {
 
     const handleClick = (e: any) => {
         console.log('click', e)
+        // uploadImage();
         // createNewAuthor();
         // postData('https://builder.io/api/v1/write/reviews', dataObject)
         //  .then((data) => {
@@ -91,14 +93,14 @@ export const Navigation = (props: any) => {
 
     return <>
         {/* client-side */}
-        {navData.map((nav: any) => {
+        {/* {navData.map((nav: any) => { */}
 
         {/* server-side */}
-        {/* {props?.siteSettings?.map((nav: any) => {  */}
+        {props?.siteSettings?.map((nav: any) => { 
             return(
                 <BuilderContent content={nav} key={nav.id} model="site-settings">{ (data: any, loading, fullContent) => {
-                        console.log('VARIANT DATA: ', data);
-                        console.log('FULLCONTENT: ', fullContent?.id)
+                        // console.log('VARIANT DATA: ', data);
+                        // console.log('FULLCONTENT: ', fullContent?.id)
                         if (loading) {
                             return "Loading..."
                         }

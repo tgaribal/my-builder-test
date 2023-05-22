@@ -113,6 +113,11 @@ Builder.registerComponent(TestCustomComponent, {
         localized: true
       },
       {
+        name: 'new input',
+        type: 'text',
+        required: true
+      },
+      {
         name: 'subheader',
         type: 'string',
         defaultValue: 'Whether you’re starting a new project or feeling stuck on a current one, contact us today.',

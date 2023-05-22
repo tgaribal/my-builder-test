@@ -8,36 +8,59 @@ import '@components/TestCustomComponent/TestCustomComponent';
 import '@components/CustomComponentExample/CustomComponentExample';
 import '@components/CloudinaryImage';
 import '@builder.io/widgets';
+import * as fs from 'fs';
 
 const BUILDER_API_KEY = 'e37b966ec695434bb21e97442a4a9f46'
 builder.init(BUILDER_API_KEY)
+builder.apiVersion = 'v3';
 
-const locale = 'en-US'
+const locale='en-CA';
+const userName = "Ahmed"
 
 // tells you what paths are being built
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ page: string[] }>) {
- console.log('STATIG PROPS')
+
   const page = (
     await builder
       .get('page', {
         userAttributes: {
           urlPath: '/'+ (params?.page?.join('/') || ''),
-          // loggedIn: false
+          loggedIn: true,
+          userName,
+          builderEmployee: true
         },
+        apiVersion: 'v3',
         options: {
           includeRefs: true,
           noTraverse: false,
-          locale
+          locale,
+          enrich: true
         },
-        locale
       })
       .toPromise()) || null
     
-      console.log('PAGEPAGE', page)
+      // console.log('PAGEPAGE', page?.meta)
       const serverResults = { text: 'headerText', person: { name: 'tim', employer: 'Builder'} }
-      
+
+     //need to import fs 
+      // Define the PNG file path
+      // const pngFilePath = './my-image.png';
+      // const bitmap = fs.readFileSync(pngFilePath);
+
+      // console.log('bitmap data:', bitmap);
+      // fetch('https://builder.io/api/v1/upload', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Authorization': 'Bearer bpk-861aae28bd494e9880e5badcddcf89c8',
+      //     'Content-Type': 'image/png'
+      //   },
+      //   body: bitmap
+      // }).then(res => {
+      //   console.log('RESPONSE: ', res)
+      // });
+
   return {
     props: {
       page,
@@ -56,19 +79,19 @@ export async function getStaticProps({
 // returns a list
 export async function getStaticPaths() {
 //  console.log("STATIC PATHS")
-  const pages = await builder.getAll('page', {
-    // limit: 100,
-    options: { noTargeting: true },
-    omit: 'data.blocks'
-  })
+  // const pages = await builder.getAll('page', {
+  //   limit: 100,
+  //   options: { noTargeting: true },
+  //   omit: 'data.blocks'
+  // }) || null;
   // console.log("PAGES PAGES pages", pages)
   
-  const paths = pages.map((thing:any) => {
-    // console.log('PAGES PAAGES: ', thing?.data?.url)
-    const page = `${thing?.data?.url}`;
-    return page;
-  });
-  // const paths = [];
+  // const paths = pages.map((thing:any) => {
+  //   // console.log('PAGES PAAGES: ', thing?.data?.url)
+  //   const page = `${thing?.data?.url}`;
+  //   return page;
+  // });
+  const paths:any = [];
   return {
     paths,
     fallback: true,
@@ -113,34 +136,29 @@ export default function Page({
       {show404 ? (
         <DefaultErrorPage statusCode={404} />
       ) : (
+        <>
         <BuilderContent content={page} model="page"> 
-          {(variant, loading, content) => {
-            // console.log('VARIANTE: ', variant)
-            // console.log('VARIANTE full: ', content)
-            return (
+          {(data, loading, content) => {
+            console.log('BUILDER LOADED DATA: ', {data, content} )
+            return(
+              <div>{data?.title}</div>
+            )
+           }}
+           
+      </BuilderContent>
+        //     return (
               <BuilderComponent
                 model="page" 
                 content={page} 
-                // options={{
-                //   userAttributes: {
-                //     loggedIn: true
-                //   }
-                // }}
-                data={{ loggedIn: true, testDataToPass, serverResults }}
+                data={{ loggedIn: false, testDataToPass, serverResults }}
                 locale={locale}
-                // options={{
-                //   includeRefs: true,
-                //   options: {
-                //     noTraverse: false
-                //   }
-                // }}
                 contentLoaded={(data, content)=> {
-                  // console.log('hellur', data, content, content.id, content.name, content.testVariationId, content.testVariationName)
-                  // console.log('CONTNET LOADED: ', data, content)
-
-                    // analytics.page({
-                    //   variantId
-                    // }) 
+                //   // console.log('hellur', data, content, content.id, content.name, content.testVariationId, content.testVariationName)
+                //   // console.log('CONTNET LOADED: ', data, content)
+                   console.log('CONTENT LOADED DATA: ', {data, content} )
+                //     // analytics.page({
+                //     //   variantId
+                //     // }) 
                 }}
                 context={{
                   handleSubmit, 
@@ -156,12 +174,14 @@ export default function Page({
                       console.log('CLICK')
                       builder.trackConversion(99);
                     }
-                  }} >
+                  }} 
+                  >
                 This is default component
               </BuilderComponent>
-            )
-          }}
-          </BuilderContent>
+              </>
+        //     )
+        //   }}
+        //   </BuilderContent>
           )
         }
     </>

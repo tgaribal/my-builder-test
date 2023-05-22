@@ -10,12 +10,31 @@ import '@builder.io/widgets';
 const BUILDER_API_KEY = 'e37b966ec695434bb21e97442a4a9f46'
 builder.init(BUILDER_API_KEY)
 
-
+const locale = 'it';
 // tells you what paths are being built
 export async function getStaticProps({
   params,
 }: GetStaticPropsContext<{ article: string }>) {
-  
+
+  const localizedArticlleTemplate =
+    (await builder
+      .get('article-page', {
+        userAttributes: {
+          urlPath: '/womens/pants'
+        },
+        query: {
+          data: {
+            translatedRoute: {
+              [locale]: '/it/it/this'
+            }
+          }
+        }
+      })
+      .toPromise()) || null;
+      console.log('ARTICLE STUFF: ', localizedArticlleTemplate)
+
+
+
   const articleData =
     (await builder
       .get('article', {
@@ -92,7 +111,7 @@ export default function Article({
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <BuilderContent modelName="article">
+      <BuilderContent model="article">
       {(variant, loading, content) => {
         console.log(variant)
         return (
