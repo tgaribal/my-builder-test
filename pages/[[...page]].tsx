@@ -139,14 +139,13 @@ export default function Page({
         <>
         <BuilderContent content={page} model="page"> 
           {(data, loading, content) => {
-            console.log('BUILDER LOADED DATA: ', {data, content} )
+            console.log('BUILDER CONTENT DATA: ', {data, content} )
             return(
               <div>{data?.title}</div>
             )
            }}
-           
       </BuilderContent>
-        //     return (
+
               <BuilderComponent
                 model="page" 
                 content={page} 
