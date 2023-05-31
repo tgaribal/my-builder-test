@@ -14,7 +14,7 @@ const BUILDER_API_KEY = 'e37b966ec695434bb21e97442a4a9f46'
 builder.init(BUILDER_API_KEY)
 builder.apiVersion = 'v3';
 
-const locale='en-CA';
+const locale='en';
 const userName = "Ahmed"
 
 // tells you what paths are being built
@@ -27,17 +27,16 @@ export async function getStaticProps({
       .get('page', {
         userAttributes: {
           urlPath: '/'+ (params?.page?.join('/') || ''),
-          loggedIn: true,
-          userName,
-          builderEmployee: true
+          loggedIn: true
         },
-        apiVersion: 'v3',
-        options: {
-          includeRefs: true,
-          noTraverse: false,
-          locale,
-          enrich: true
-        },
+        locale
+        // apiVersion: 'v3',
+        // options: {
+        //   includeRefs: true,
+        //   noTraverse: false,
+        //   locale,
+        //   enrich: true
+        // },
       })
       .toPromise()) || null
     
@@ -146,41 +145,38 @@ export default function Page({
            }}
       </BuilderContent>
 
-              <BuilderComponent
-                model="page" 
-                content={page} 
-                data={{ loggedIn: false, testDataToPass, serverResults }}
-                locale={locale}
-                contentLoaded={(data, content)=> {
-                //   // console.log('hellur', data, content, content.id, content.name, content.testVariationId, content.testVariationName)
-                //   // console.log('CONTNET LOADED: ', data, content)
-                   console.log('CONTENT LOADED DATA: ', {data, content} )
-                //     // analytics.page({
-                //     //   variantId
-                //     // }) 
-                }}
-                context={{
-                  handleSubmit, 
-                  clickOnPage: (e: any) => {
-                    console.log('EVENT: ', e.target.dataset)
-                    // if(e.target.dataset) {
-                      //   state.testingEvent = e.target.dataset
-                      // }
-                      builder.track('add-to-bag')
-                      builder.track('custom-event');
-                      builder.track('whateverYouWant');
-                      builder.track('click-by-model', { meta: {modelClicked: 'page', isTesting: true}});
-                      console.log('CLICK')
-                      builder.trackConversion(99);
-                    }
-                  }} 
-                  >
-                This is default component
-              </BuilderComponent>
+          <BuilderComponent
+            model="page" 
+            content={page} 
+            data={{ loggedIn: false, testDataToPass, serverResults, currency: 'USD' }}
+            locale={locale}
+            contentLoaded={(data, content)=> {
+            //   // console.log('hellur', data, content, content.id, content.name, content.testVariationId, content.testVariationName)
+            //   // console.log('CONTNET LOADED: ', data, content)
+                console.log('CONTENT LOADED DATA: ', {data, content} )
+            //     // analytics.page({
+            //     //   variantId
+            //     // }) 
+            }}
+            context={{
+              handleSubmit, 
+              clickOnPage: (e: any) => {
+                console.log('EVENT: ', e.target.dataset)
+                // if(e.target.dataset) {
+                  //   state.testingEvent = e.target.dataset
+                  // }
+                  builder.track('add-to-bag')
+                  builder.track('custom-event');
+                  builder.track('whateverYouWant');
+                  builder.track('click-by-model', { meta: {modelClicked: 'page', isTesting: true}});
+                  console.log('CLICK')
+                  builder.trackConversion(99);
+                }
+              }} 
+              >
+            This is default component
+          </BuilderComponent>
               </>
-        //     )
-        //   }}
-        //   </BuilderContent>
           )
         }
     </>

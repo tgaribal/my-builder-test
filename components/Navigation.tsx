@@ -8,12 +8,12 @@ export const Navigation = (props: any) => {
     const [navData, setNavData] = useState<any[]>([]);
 
     useEffect(() => {
-        console.log('whaaaa outside setProperties')
+        // console.log('whaaaa outside setProperties')
         const setBuilderProperties = async () => {
-            console.log('whaaaa before')
+            // console.log('whaaaa before')
             const siteSettings = (await builder.get('site-settings', { options: {includeRefs: true} }).toPromise() || null);
-            console.log('whaaaa after')
-            console.log('whaaaa', siteSettings)
+            // console.log('whaaaa after')
+            // console.log('whaaaa', siteSettings)
             setNavData([siteSettings]);
         }
 
